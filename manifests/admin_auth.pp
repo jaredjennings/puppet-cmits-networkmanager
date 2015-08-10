@@ -23,7 +23,7 @@
 
 class networkmanager::admin_auth {
     case $osfamily {
-        RedHat: {
+        'RedHat': {
             case $operatingsystemrelease {
 
 # RHEL6 comes with NetworkManager, and it works and lets users do things to
@@ -53,12 +53,12 @@ org.freedesktop.network-manager-settings.*",
 # network settings without being an admin, as required.
                 /^5\..*/: {}
 
-                default: { unimplemented() }
+                default: { fail "unimplemented on ${::osfamily} ${::operatingsystemrelease}" }
             }
         }
 # % FIXME: Where does Darwin comply with GEN003581?
 # Darwin doesn't have NetworkManager.
-        Darwin: {}
-        default: { unimplemented() }
+        'Darwin': {}
+        default: { fail "unimplemented on ${::osfamily}" }
     }
 }
